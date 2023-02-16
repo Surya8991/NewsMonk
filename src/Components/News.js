@@ -9,7 +9,7 @@ export class News extends Component {
       articles: [],
       loading: false,
       page: 1,
-    }
+    };
   }
 
   // Component did mount to fetch news from api
@@ -20,34 +20,41 @@ export class News extends Component {
     let data = await fetch(url);
     let parsedData = await data.json();
     console.log(parsedData);
-    this.setState({ articles: parsedData.articles , totalResults:parsedData.totalResults })
+    this.setState({
+      articles: parsedData.articles,
+      totalResults: parsedData.totalResults,
+    });
   }
 
-  handlePrevClick = async ()=>{
+  handlePrevClick = async () => {
     console.log("Previous");
-    let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=d500198c03734116b3ccafde846d78e2&page=${this.state.page - 1}&pageSize=10`;
-    let data = await fetch(url);
-    let parsedData = await data.json()
-    console.log(parsedData);  
-    this.setState({
-        page: this.state.page - 1,
-        articles: parsedData.articles
-    })
-
-}
- handleNextClick=async()=>{
-    console.log("Next");
-    if(this.state.page + 1 >Math.ceil(this.state.totalResults/10)){
-
-    }
-    else{
-      let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=d500198c03734116b3ccafde846d78e2&page=${this.state.page + 1}&pageSize=10`;
+    let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=d500198c03734116b3ccafde846d78e2&page=${
+      this.state.page - 1
+    }&pageSize=10`;
     let data = await fetch(url);
     let parsedData = await data.json();
     console.log(parsedData);
-    this.setState({ page: this.state.page + 1, articles: parsedData.articles })
-  }
-}
+    this.setState({
+      page: this.state.page - 1,
+      articles: parsedData.articles,
+    });
+  };
+  handleNextClick = async () => {
+    console.log("Next");
+    if (this.state.page + 1 > Math.ceil(this.state.totalResults / 10)) {
+    } else {
+      let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=d500198c03734116b3ccafde846d78e2&page=${
+        this.state.page + 1
+      }&pageSize=10`;
+      let data = await fetch(url);
+      let parsedData = await data.json();
+      console.log(parsedData);
+      this.setState({
+        page: this.state.page + 1,
+        articles: parsedData.articles,
+      });
+    }
+  };
 
   render() {
     return (
@@ -59,13 +66,17 @@ export class News extends Component {
               return (
                 <div className="col-md-6 col-lg-4 cardBody" key={element.url}>
                   <NewsItem
-                    title={element.title.slice(0, 40)}
+                    title={element.title.slice(0, 48)}
                     description={
                       element.description
                         ? element.description.slice(0, 90)
                         : "                                                                                          "
                     }
-                    imageUrl={element.urlToImage}
+                    imageUrl={
+                      element.urlToImage
+                        ? element.urlToImage
+                        : "https://images.pexels.com/photos/3944377/pexels-photo-3944377.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                    }
                     url={element.url}
                   />
                 </div>
