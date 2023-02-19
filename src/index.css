@@ -26,3 +26,8 @@ code {
   text-align: center;
   margin-bottom: 20px;
 }
+.endCard{
+display: grid;
+justify-content: space-around;
+text-align: center;
+}

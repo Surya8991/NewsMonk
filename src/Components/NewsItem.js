@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 export class NewsItem extends Component {
   render() {
-    let { title, description, imageUrl, url } = this.props;
+    let { title, description, imageUrl, url ,author,time} = this.props;
     return (
       <>
         <div className="card" style={{ width: "18rem" }}>
@@ -25,6 +25,10 @@ export class NewsItem extends Component {
             >
               Read More
             </a>
+            <div className="endCard">
+            <span>{author}</span>
+            <span>{time.slice(0,16)}</span>
+            </div>
           </div>
         </div>
       </>
