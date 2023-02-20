@@ -82,10 +82,10 @@ export class News extends Component {
               return (
                 <div className="col-md-6 col-lg-4 cardBody" key={element.url}>
                   <NewsItem
-                    title={element.title.slice(0, 60)}
+                    title={element.title.slice(0, 100)}
                     description={
                       element.description
-                        ? element.description.slice(0, 120)
+                        ? element.description.slice(0, 200)
                         : "                                                                                          "
                     }
                     imageUrl={
@@ -96,6 +96,7 @@ export class News extends Component {
                     url={element.url}
                     author={element.author}
                     time={element.publishedAt}
+                    source={element.source.name}
                   />
                 </div>
               );
@@ -114,7 +115,7 @@ export class News extends Component {
               type="button"
               className="btn btn-dark"
               onClick={this.handleNextClick}
-              disabled={this.state.page + 1 > Math.ceil(this.state.totalResults / 10)}
+              disabled={this.state.page + 1 > Math.ceil(this.state.totalResults/this.props.pageSize)}
             >
               Next ➡
             </button>

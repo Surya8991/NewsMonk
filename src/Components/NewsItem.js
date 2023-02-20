@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 export class NewsItem extends Component {
   render() {
-    let { title, description, imageUrl, url ,author,time} = this.props;
+    let { title, description, imageUrl, url ,author,time,source} = this.props;
     return (
       <>
-        <div className="card" style={{ width: "18rem" }}>
+        <div className="card" style={{ width: "20rem" }}>
           <img
             src={
               !imageUrl
@@ -26,8 +26,9 @@ export class NewsItem extends Component {
               Read More
             </a>
             <div className="endCard">
-            <span>{author}</span>
-            <span>{time.slice(0,16)}</span>
+            <span>Source: {source?source:"-"}</span>
+            <span>Author: {author?author:"-"}</span>
+            <span>Time: {time.slice(0,16)}</span>
             </div>
           </div>
         </div>
