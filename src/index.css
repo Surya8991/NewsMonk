@@ -26,8 +26,11 @@ code {
   text-align: center;
   margin-bottom: 20px;
 }
-.endCard{
-display: grid;
-justify-content: space-around;
-text-align: center;
+.endCard {
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 2px solid black;
+  display: grid;
+  justify-content: space-around;
+  text-align: center;
 }
