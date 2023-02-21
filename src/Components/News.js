@@ -15,7 +15,7 @@ export class News extends Component {
 
   // Component did mount to fetch news from api
 
-  async componentDidMount() {
+  async updateNews() {
     let url =
       `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=d500198c03734116b3ccafde846d78e2&page=${this.state.page}&pageSize=${this.props.pageSize}`;
     this.setState({ loading: true });
@@ -28,33 +28,26 @@ export class News extends Component {
     })
   }
 
-  handlePrevClick = async () => {
-    console.log("Previous");
-    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=d500198c03734116b3ccafde846d78e2&page=${this.state.page - 1
-      }&pageSize=${this.props.pageSize}`;
-    this.setState({ loading: true })
-    let data = await fetch(url);
-    let parsedData = await data.json();
-    console.log(parsedData);
+  async componentDidMount() {
     this.setState({
-      page: this.state.page - 1,
-      articles: parsedData.articles,
-      loading: false
-    });
+      page: this.state.page
+    })
+    this.updateNews()
+  }
+
+  handlePrevClick = async () => {
+    this.setState({
+      page: this.state.page - 1
+    })
+    console.log("Prev")
+    this.updateNews()
   };
   handleNextClick = async () => {
-    console.log("Next");
-    let url = `https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=d500198c03734116b3ccafde846d78e2&page=${this.state.page + 1
-      }&pageSize=${this.props.pageSize}`;
-    this.setState({ loading: true })
-    let data = await fetch(url);
-    let parsedData = await data.json();
-    console.log(parsedData);
     this.setState({
-      page: this.state.page + 1,
-      articles: parsedData.articles,
-      loading: false
+      page: this.state.page + 1
     })
+    console.log("Next")
+    this.updateNews()
   }
 
   // Setting Default Props
@@ -63,14 +56,14 @@ export class News extends Component {
   render() {
     // setting default Props
     News.defaultProps = {
-      country:"in",
-      category:"general",
-      pageSize:5
+      country: "in",
+      category: "general",
+      pageSize: 5
     }
-    News.propTypes={
-      country:PropTypes.string,
-      category:PropTypes.string,
-      pageSize:PropTypes.number
+    News.propTypes = {
+      country: PropTypes.string,
+      category: PropTypes.string,
+      pageSize: PropTypes.number
     }
     return (
       <>
@@ -115,7 +108,7 @@ export class News extends Component {
               type="button"
               className="btn btn-dark"
               onClick={this.handleNextClick}
-              disabled={this.state.page + 1 > Math.ceil(this.state.totalResults/this.props.pageSize)}
+              disabled={this.state.page + 1 > Math.ceil(this.state.totalResults / this.props.pageSize)}
             >
               Next ➡
             </button>
