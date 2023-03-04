@@ -60,7 +60,7 @@ const News = (props)=>{
                     <div className="row">
                         {articles.map((element) => {
                             return <div className="col-md-4" key={element.url}>
-                                <NewsItem title={element.title ? element.title : ""} description={element.description ? element.description : ""} imageUrl={element.urlToImage} newsUrl={element.url} author={element.author} date={element.publishedAt} source={element.source.name} />
+                                <NewsItem title={element.title ? element.title : ""} description={element.description ? element.description : ""} imageUrl={element.urlToImage ? element.urlToImage : "https://images.hindustantimes.com/img/2023/01/31/1600x900/Breaking-News-Live-Blog-pic_1627344775185_1675123654673_1675123654673.jpg"} newsUrl={element.url} author={element.author} date={element.publishedAt} source={element.source.name} />
                             </div>
                         })}
                     </div>
