@@ -12,7 +12,7 @@ const NewsItem = (props)=> {
                         right: '0'
                     }
                     }> 
-                        <span className="badge rounded-pill bg-danger"> {source ? source : "Google"} </span>
+                        <span className="badge rounded-pill bg-danger"> {author ? author: "Google"} </span>
                     </div>
                     <img src={imageUrl} className="card-img-top" alt="..." />
                     <div className="card-body">
