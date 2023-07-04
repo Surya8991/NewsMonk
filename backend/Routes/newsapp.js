@@ -6,10 +6,6 @@ let savedNewsItems = [];
 router.use(bodyParser.json());
 
 
-router.get("/clearnews", (req, res) => {
-  savedNewsItems.splice(0,savedNewsItems.length)
-  res.json({ message: "News Items Cleared", savedNewsItems: savedNewsItems });
-});
 
 
 router.post("/savenews", (req, res) => {
@@ -20,6 +16,10 @@ router.post("/savenews", (req, res) => {
 
 router.get("/displaynews", (req, res) => {
   res.json(savedNewsItems);
+});
+router.get("/clearnews", (req, res) => {
+  savedNewsItems.splice(0,savedNewsItems.length)
+  res.json({ message: "News Items Cleared", savedNewsItems: savedNewsItems });
 });
 
 module.exports = router;
