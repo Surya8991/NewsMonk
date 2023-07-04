@@ -1,8 +1,21 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 
 const NewsItem = (props) => {
   const { title, description, imageUrl, newsUrl, author, date, id } = props;
-  const [saved, setSaved] = useState("Save")
+  const [saved, setSaved] = useState("Save");
+
+  useEffect(() => {
+    // Check if the news item is saved in localStorage
+    const savedNews = localStorage.getItem('savedNews');
+    if (savedNews) {
+      const savedNewsIds = JSON.parse(savedNews);
+      if (savedNewsIds.includes(id)) {
+        setSaved("Saved");
+      }
+      console.log(savedNewsIds)
+    }
+  }, [id]);
+
   const handleClick = async (event) => {
     event.preventDefault();
 
@@ -18,7 +31,14 @@ const NewsItem = (props) => {
       if (response.ok) {
         const data = await response.json();
         console.log(data.message);
-        setSaved("Saved")
+
+        // Update the savedNewsIds in localStorage
+        const savedNews = localStorage.getItem('savedNews');
+        const savedNewsIds = savedNews ? JSON.parse(savedNews) : [];
+        savedNewsIds.push(id);
+        localStorage.setItem('savedNews', JSON.stringify(savedNewsIds));
+
+        setSaved("Saved");
       } else {
         throw new Error('Failed to save news.');
       }
@@ -26,6 +46,7 @@ const NewsItem = (props) => {
       console.error('Error:', error);
     }
   };
+
 
   return (
     <div className="my-3">
@@ -51,7 +72,7 @@ const NewsItem = (props) => {
             <a rel="noreferrer" href={newsUrl} target="_blank" className="btn btn-sm btn-dark">
               Read More
             </a>
-            <button className="btn btn-sm btn-dark" value={saved} onClick={handleClick}>Save</button>
+            <button className="btn btn-sm btn-dark save-item"  onClick={handleClick}>{saved}</button>
           </div>
         </div>
       </div>
